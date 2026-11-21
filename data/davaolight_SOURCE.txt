@@ -1,0 +1,4 @@
+Davao Light and Power Company, "Average Monthly Rates" table (October 2026), FAQs: Rates page,
+https://www.davaolight.com/customer-services/faqs-rates. Totals and per-kW / per-customer charges transcribed by
+the author on 21 November 2026. The page loads its tables dynamically and could not be captured by web archives.
+Totals for classes with demand charges hold only at a particular load, which the page does not state (no footnote).

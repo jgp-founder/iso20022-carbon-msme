@@ -1,0 +1,70 @@
+{
+  "_note": "All inputs for the scenario analysis. Every value has a source or is labelled ASSUMPTION. Replace assumptions with better public data where available.",
+  "seed": 20261119,
+  "n_messages": 10000,
+  "category_mix": {
+    "_source": "ASSUMPTION. Results are reported per category, so the mix only affects totals.",
+    "electricity": 0.6,
+    "fuel": 0.4
+  },
+  "grid_emission_factor_kgco2_per_kwh": {
+    "value": 0.6935,
+    "_source": "DOE, Philippine Energy Plan 2023-2050 Vol. III, Table 7: Luzon-Visayas simple operating margin, 2019-2021 = 0.6935 tCO2/MWh.",
+    "sensitivity_alt": 0.7058,
+    "_alt_source": "Same table: Luzon-Visayas combined margin (wind and solar), 2019-2021 = 0.7058 tCO2/MWh."
+  },
+  "electricity": {
+    "tariff_source": "list",
+    "tariff_list_file": "data/presyo_oct2026_residential.csv",
+    "_list_source": "Residential electricity rates of 113 distribution utilities (101 on-grid, 12 off-grid), October 2026, Institute for Climate and Sustainable Cities, PRESYO-PH National Overview, https://presyo.icsc.ngo/national (accessed 20 Nov 2026; archived https://web.archive.org/web/20261120151637/https://presyo.icsc.ngo/national). Transcribed from the 'Highest and lowest residential electricity rates' table. Only on-grid utilities are used; each utility is equally likely (unweighted, no customer counts). Methods A and B use the unweighted mean of the list.",
+    "exclude_codes": [],
+    "_synthetic_note": "Used only when tariff_source = 'synthetic' (previous design, kept as a sensitivity case): n_distribution_utilities spread evenly between tariff_min and tariff_max.",
+    "tariff_min_php_per_kwh": 11.8297,
+    "_min_source": "ALECO Residential Mainland rate, October 2026, Albay Electric Cooperative, Inc., Power rates for October 2026, https://web.alecoinc.com.ph/rates.php (accessed 20 Nov 2026; archived https://web.archive.org/web/20261120055333/https://web.alecoinc.com.ph/rates.php). Illustrative LOW bound, not the national minimum.",
+    "tariff_max_php_per_kwh": 15.0615,
+    "_max_source": "Meralco overall rate for a typical household, October 2026 (P15.0615/kWh), as stated in Manila Electric Company, Higher residential rates this November 2026 [press release, 13 Nov 2026], archived https://web.archive.org/web/20261120060936/https://www.meralco.com.ph/media/advisories/higher-residential-rates-this-november-2026. Illustrative HIGH bound, not the national maximum.",
+    "n_distribution_utilities": 20,
+    "_du_note": "ASSUMPTION: 20 synthetic distribution utilities with tariffs spread evenly between the two published bounds.",
+    "within_du_tariff_variation": 0.05,
+    "_within_du_note": "ASSUMPTION: each customer's effective tariff varies uniformly by +/-5% around its utility's published rate (customer class, monthly adjustments, refunds). The registry used by method C holds only the published rate.",
+    "median_kwh_per_payment": 200,
+    "_kwh_source": "Meralco 'typical household' consumption of 200 kWh/month used in its rate announcements (e.g., Meralco press release, 13 Nov 2026).",
+    "kwh_lognormal_sigma": 0.5,
+    "_sigma_note": "ASSUMPTION."
+  },
+  "fuel": {
+    "share_diesel": 0.5,
+    "_share_note": "ASSUMPTION.",
+    "diesel_price_min_php_per_l": 88.3,
+    "diesel_price_max_php_per_l": 98.8,
+    "gasoline_price_min_php_per_l": 74.9,
+    "gasoline_price_max_php_per_l": 101.1,
+    "_price_source": "Projected Metro Manila retail ranges for the week starting 20 Oct 2026 (based on DOE prevailing prices 13-19 Oct plus adjustments): regular diesel P88.30-98.80/L; gasoline across grades P74.90-101.10/L. Daily Tribune, 19 Oct 2026, 'Gasoline prices plunge, diesel costs climb', archived https://web.archive.org/web/20261120062921/https://tribune.net.ph/2026/10/19/gasoline-prices-plunge-diesel-costs-climb",
+    "median_litres_per_payment": 20,
+    "litres_lognormal_sigma": 0.6,
+    "_litre_note": "ASSUMPTION.",
+    "ef_diesel_kgco2_per_l": 2.6765,
+    "ef_gasoline_kgco2_per_l": 2.2718,
+    "_ef_source": "Derived from IPCC 2006 Guidelines Vol. 2 Ch. 1 defaults: CO2 EF 74,100 kg/TJ (gas/diesel oil) and 69,300 kg/TJ (motor gasoline); NCV 43.0 and 44.3 TJ/Gg. Densities 0.84 and 0.74 kg/L are ASSUMPTIONS. CO2 only (CH4, N2O excluded)."
+  },
+  "scenarios": {
+    "purpose_code_share_p": [
+      0.0,
+      0.25,
+      0.5,
+      0.75,
+      1.0
+    ],
+    "creditor_id_resolvable_share_q": [
+      0.0,
+      0.5,
+      1.0
+    ],
+    "_note": "p = share of messages carrying a usable purpose code (ELEC / FUEL). q = share of coded electricity messages whose creditor ID resolves to a known distribution utility in the institution's registry."
+  },
+  "iso_codes": {
+    "electricity": "ELEC",
+    "fuel": "FUEL",
+    "_fuel_note": "FUEL (Fuel/Gas) is registered in ExternalPurpose1Code since 2026-08-28 via CR1639 (Federal Reserve Financial Services), per the ISO 20022 External Code Sets file checked on 20 Nov 2026. Adoption by PESONet/InstaPay is not known."
+  }
+}

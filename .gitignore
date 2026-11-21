@@ -1,0 +1,6 @@
+# Local Python environment (each user creates their own from requirements.txt)
+.venv/
+__pycache__/
+
+# ISO 20022 schema: obtain from the ISO 20022 message archive; not redistributed
+*.xsd

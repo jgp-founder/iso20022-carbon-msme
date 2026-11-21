@@ -1,0 +1,7 @@
+Visayan Electric Company (VECO), "Average Monthly Rate" table, Frequently Asked Questions page,
+https://www.visayanelectric.com/customer-services/faq, column "October 2026", customer classes "for Captive".
+Transcribed by the author on 21 November 2026. The table loads dynamically and could not be captured by the
+Internet Archive (Wayback Machine) or archive.today, so the values are recorded here.
+Page notes (verbatim): 1. Average rate was derived using the 0.75% Local Franchise Tax (LFT) of Cebu City.
+2. Using the typical consumption of each customer class. 3. Schedules V & VI are simulated using a load factor
+of 50% and 60% for Schedule VII. Rates will vary depending on their load factor.

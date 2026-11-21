@@ -1,0 +1,8 @@
+customer_class,consumption_kwh,demand_kw,load_factor,rate_php_per_kwh_oct2026
+Street Light,12521,,,12.56
+Residential,200,,,15.30
+General Service,572,,,16.48
+General Power,5353,,,14.97
+Bulk Power,36500,100,0.50,14.39
+Wholesale Power,273750,750,0.50,13.82
+Special Wholesale,876000,2000,0.60,13.03

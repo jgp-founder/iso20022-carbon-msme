@@ -1,0 +1,147 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pacs.008.001.08">
+  <FIToFICstmrCdtTrf>
+    <GrpHdr>
+      <MsgId>SYNTHETIC-BATCH-0001</MsgId>
+      <CreDtTm>2026-11-19T00:00:00+08:00</CreDtTm>
+      <NbOfTxs>5</NbOfTxs>
+      <SttlmInf>
+        <SttlmMtd>CLRG</SttlmMtd>
+      </SttlmInf>
+    </GrpHdr>
+    <CdtTrfTxInf>
+      <PmtId>
+        <EndToEndId>SYN-000000</EndToEndId>
+      </PmtId>
+      <IntrBkSttlmAmt Ccy="PHP">2457.91</IntrBkSttlmAmt>
+      <ChrgBr>SLEV</ChrgBr>
+      <Dbtr>
+        <Nm>SYNTHETIC PAYER</Nm>
+      </Dbtr>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>SYNTPHMMXXX</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+      <CdtrAgt>
+        <FinInstnId>
+          <BICFI>SYNTPHMMXXX</BICFI>
+        </FinInstnId>
+      </CdtrAgt>
+      <Cdtr>
+        <Nm>SYNTHETIC CREDITOR</Nm>
+      </Cdtr>
+      <Purp>
+        <Cd>ELEC</Cd>
+      </Purp>
+    </CdtTrfTxInf>
+    <CdtTrfTxInf>
+      <PmtId>
+        <EndToEndId>SYN-000001</EndToEndId>
+      </PmtId>
+      <IntrBkSttlmAmt Ccy="PHP">2109.09</IntrBkSttlmAmt>
+      <ChrgBr>SLEV</ChrgBr>
+      <Dbtr>
+        <Nm>SYNTHETIC PAYER</Nm>
+      </Dbtr>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>SYNTPHMMXXX</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+      <CdtrAgt>
+        <FinInstnId>
+          <BICFI>SYNTPHMMXXX</BICFI>
+        </FinInstnId>
+      </CdtrAgt>
+      <Cdtr>
+        <Nm>SYNTHETIC CREDITOR</Nm>
+      </Cdtr>
+      <Purp>
+        <Cd>FUEL</Cd>
+      </Purp>
+    </CdtTrfTxInf>
+    <CdtTrfTxInf>
+      <PmtId>
+        <EndToEndId>SYN-000002</EndToEndId>
+      </PmtId>
+      <IntrBkSttlmAmt Ccy="PHP">2620.60</IntrBkSttlmAmt>
+      <ChrgBr>SLEV</ChrgBr>
+      <Dbtr>
+        <Nm>SYNTHETIC PAYER</Nm>
+      </Dbtr>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>SYNTPHMMXXX</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+      <CdtrAgt>
+        <FinInstnId>
+          <BICFI>SYNTPHMMXXX</BICFI>
+        </FinInstnId>
+      </CdtrAgt>
+      <Cdtr>
+        <Nm>SYNTHETIC CREDITOR</Nm>
+      </Cdtr>
+    </CdtTrfTxInf>
+    <CdtTrfTxInf>
+      <PmtId>
+        <EndToEndId>SYN-000003</EndToEndId>
+      </PmtId>
+      <IntrBkSttlmAmt Ccy="PHP">838.50</IntrBkSttlmAmt>
+      <ChrgBr>SLEV</ChrgBr>
+      <Dbtr>
+        <Nm>SYNTHETIC PAYER</Nm>
+      </Dbtr>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>SYNTPHMMXXX</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+      <CdtrAgt>
+        <FinInstnId>
+          <BICFI>SYNTPHMMXXX</BICFI>
+        </FinInstnId>
+      </CdtrAgt>
+      <Cdtr>
+        <Nm>SYNTHETIC CREDITOR</Nm>
+      </Cdtr>
+      <Purp>
+        <Cd>ELEC</Cd>
+      </Purp>
+    </CdtTrfTxInf>
+    <CdtTrfTxInf>
+      <PmtId>
+        <EndToEndId>SYN-000004</EndToEndId>
+      </PmtId>
+      <IntrBkSttlmAmt Ccy="PHP">1556.31</IntrBkSttlmAmt>
+      <ChrgBr>SLEV</ChrgBr>
+      <Dbtr>
+        <Nm>SYNTHETIC PAYER</Nm>
+      </Dbtr>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>SYNTPHMMXXX</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+      <CdtrAgt>
+        <FinInstnId>
+          <BICFI>SYNTPHMMXXX</BICFI>
+        </FinInstnId>
+      </CdtrAgt>
+      <Cdtr>
+        <Nm>SYNTHETIC CREDITOR</Nm>
+        <Id>
+          <OrgId>
+            <Othr>
+              <Id>PANELCO 1</Id>
+            </Othr>
+          </OrgId>
+        </Id>
+      </Cdtr>
+      <Purp>
+        <Cd>ELEC</Cd>
+      </Purp>
+    </CdtTrfTxInf>
+  </FIToFICstmrCdtTrf>
+</Document>

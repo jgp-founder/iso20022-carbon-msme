@@ -1,0 +1,7 @@
+customer_class,total_php_per_kwh_oct2026,has_demand_charge,trans_php_per_kw,anc_php_per_kw,trans_adj_php_per_kw,dist_php_per_kw,supply_php_per_cust_mo,metering_php_per_meter_mo
+Flat Lighting Service 5.1,13.9994,no,,,,,93.55,
+Residential,13.3273,no,,,,,,5.00
+Secondary Retail 2.1,13.6083,no,,,,,,5.00
+Secondary Retail 3.1,14.7727,yes,169.78,325.65,-11.15,224.10,369.88,1147.73
+Primary Retail 4.1,13.1826,yes,191.54,367.25,-11.36,174.74,2928.00,1328.77
+69 kV-B,11.6654,yes,210.79,341.62,-8.05,57.69,6973.56,35794.78

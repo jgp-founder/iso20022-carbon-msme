@@ -1,0 +1,40 @@
+metric,analytical,simulated_base_seed,simulated_31_seed_mean,difference_base_minus_analytical
+electricity_A_mape,17.16,17.29,17.15,0.13
+fuel_A_mape,63.52,63.75,63.57,0.22
+all_A_mape,35.71,35.87,35.72,0.17
+electricity_B_mape,12.31,12.28,12.27,-0.04
+fuel_B_mape,6.84,6.86,6.86,0.02
+all_B_mape,10.13,10.11,10.11,-0.02
+electricity_C_mape,2.5,2.5,2.5,0.0
+fuel_C_mape,6.84,6.86,6.86,0.02
+all_C_mape,4.24,4.24,4.25,0.01
+electricity_B_mape at p=0%,17.16,,,
+fuel_B_mape at p=0%,63.52,,,
+all_B_mape at p=0%,35.71,,,
+electricity_C_mape at p=0%,17.16,,,
+fuel_C_mape at p=0%,63.52,,,
+all_C_mape at p=0%,35.71,,,
+electricity_B_mape at p=25%,15.95,,,
+fuel_B_mape at p=25%,49.35,,,
+all_B_mape at p=25%,29.31,,,
+electricity_C_mape at p=25%,13.5,,,
+fuel_C_mape at p=25%,49.35,,,
+all_C_mape at p=25%,27.84,,,
+electricity_B_mape at p=50%,14.74,,,
+fuel_B_mape at p=50%,35.18,,,
+all_B_mape at p=50%,22.92,,,
+electricity_C_mape at p=50%,9.83,,,
+fuel_C_mape at p=50%,35.18,,,
+all_C_mape at p=50%,19.97,,,
+electricity_B_mape at p=75%,13.53,,,
+fuel_B_mape at p=75%,21.01,,,
+all_B_mape at p=75%,16.52,,,
+electricity_C_mape at p=75%,6.17,,,
+fuel_C_mape at p=75%,21.01,,,
+all_C_mape at p=75%,12.1,,,
+electricity_B_mape at p=100%,12.31,,,
+fuel_B_mape at p=100%,6.84,,,
+all_B_mape at p=100%,10.13,,,
+electricity_C_mape at p=100%,2.5,,,
+fuel_C_mape at p=100%,6.84,,,
+all_C_mape at p=100%,4.24,,,

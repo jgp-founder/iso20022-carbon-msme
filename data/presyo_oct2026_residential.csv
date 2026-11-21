@@ -1,0 +1,114 @@
+rank,code,name,grid_class,rate
+1,BILECO,"Biliran Electric Cooperative, Inc.",On-grid,19.36
+2,FICELCO,"First Catanduanes Electric Cooperative, Inc.",Off-grid,18.89
+3,LEYECO 4,"Leyte IV Electric Cooperative, Inc.",On-grid,17.01
+4,NORSAMELCO,"Northern Samar Electric Cooperative, Inc.",On-grid,16.98
+5,ILECO 1,"Iloilo I Electric Cooperative, Inc.",On-grid,16.89
+6,NORECO 1,"Negros Oriental 1 Electric Cooperative, Inc.",On-grid,16.88
+7,SOLECO,"Southern Leyte Electric Cooperative, Inc.",On-grid,16.81
+8,ZAMSURECO 2,"Zamboanga del Sur II Electric Cooperative, Inc.",On-grid,16.8
+9,DORELCO,"Don Orestes Romualdez Electric Cooperative, Inc.",On-grid,16.59
+10,GUIMELCO,Guimaras Electric Cooperative,On-grid,16.55
+11,ESAMELCO,"Eastern Samar Electric Cooperative, Inc.",On-grid,16.37
+12,LEYECO 5,"Leyte V Electric Cooperative, Inc.",On-grid,16.29
+13,SAMELCO 2,"Samar II Electric Cooperative, Inc.",On-grid,16.23
+14,ILECO 3,"Iloilo III Electric Cooperative, Inc.",On-grid,16.03
+15,SAMELCO 1,"Samar I Electric Cooperative, Inc.",On-grid,15.85
+16,CEBECO 1,"Cebu I Electric Cooperative, Inc.",On-grid,15.85
+17,CAMELCO,Camiguin Electric Cooperative,On-grid,15.79
+18,MECO,Mactan Electric Company Inc.,On-grid,15.72
+19,AURELCO,"Aurora Electric Cooperative, Inc.",On-grid,15.51
+20,MOELCI 2,"Misamis Occidental II Electric Cooperative, Inc.",On-grid,15.32
+21,ORMECO,"Oriental Mindoro Electric Cooperative, Inc.",Off-grid,15.31
+22,VECO,"Visayan Electric Company, Inc.",On-grid,15.3
+23,AKELCO,"Aklan Electric Cooperative, Inc.",On-grid,15.07
+24,MERALCO,Manila Electric Railroad and Light Company,On-grid,15.06
+25,CEPALCO,"Cagayan Electric Power and Light Company, Inc",On-grid,14.85
+26,ZANECO,"Zamboanga del Norte Electric Cooperative, Inc.",On-grid,14.83
+27,MORE,MORE Electric and Power Corporation,On-grid,14.74
+28,NORECO 2,"Negros Oriental 2 Electric Cooperative, Inc.",On-grid,14.44
+29,ILECO 2,"Iloilo II Electric Cooperative, Inc.",On-grid,14.42
+30,NEECO 2 - A2,"Nueva Ecija 2 Electric Cooperative, Inc. - Area 2",On-grid,14.42
+31,MOELCI 1,"Misamis Occidental I Electric Cooperative, Inc.",On-grid,14.35
+32,NEPC,Negros Electric and Power Corporation,On-grid,14.27
+33,ILPI,"Iligan Light & Power, Inc.",On-grid,14.19
+34,BLCI,Bohol Light Company Inc.,On-grid,14.1
+35,CEBECO 3,"Cebu III Electric Cooperative, Inc.",On-grid,14.06
+36,SURNECO,Surigao del Norte Electric Cooperative,On-grid,13.98
+37,FIBECO,"First Bukidnon Electric Cooperative, Inc",On-grid,13.92
+38,BOHECO 2,Bohol 2 Electric Cooperative,On-grid,13.91
+39,COTELCO,Cotabato Electric Cooperative,On-grid,13.69
+40,LUELCO,"La Union Electric Cooperative, Inc.",On-grid,13.49
+41,KAELCO,Kalinga-Apayao Electric Cooperative,On-grid,13.46
+42,SORECO 2,"Sorsogon II Electric Cooperative, Inc.",On-grid,13.42
+43,SFELAPCO,San Fernando Electric Light & Power Company,On-grid,13.36
+44,DLPC,"Davao Light and Power Company, Inc.",On-grid,13.33
+45,QUEZELCO 2,Quezon II Electric Cooperative,On-grid,13.22
+46,BATANELCO,Batanes Electric Cooperative,Off-grid,13.18
+47,PANELCO 3,Pangasinan III Electric Cooperative,On-grid,13.03
+48,SURSECO 2,"Surigao del Sur II Electric Cooperative, Inc.",On-grid,13.03
+49,OEDC,"Olongapo Electricity Distribution Company, Inc.",On-grid,13.01
+50,CELCOR,Cabanatuan Electric Corporation,On-grid,13.0
+51,COTELCO - PPALMA,"Cotabato Electric Cooperative, Inc. - PPALMA",On-grid,12.96
+52,PELCO 3,Pampanga III Electric Cooperative Inc.,On-grid,12.91
+53,PROSIELCO,Province of Siquijor Electric Cooperative,Off-grid,12.88
+54,QUIRELCO,"Quirino Electric Cooperative, Inc.",On-grid,12.87
+55,DASURECO,Davao del Sur Electric Cooperative,On-grid,12.86
+56,PALECO,Palawan Electric Cooperative,Off-grid,12.82
+57,MORESCO 2,"Misamis Oriental II Rural Electric Cooperative, Inc.",On-grid,12.72
+58,TEI,Tarlac Electric Inc.,On-grid,12.72
+59,SURSECO 1,"Surigao del Sur I Electric Cooperative, Inc.",On-grid,12.7
+60,ZAMCELCO,"Zamboanga City Electric Cooperative, Inc.",On-grid,12.65
+61,SOCOTECO 2,"South Cotabato II Electric Cooperative, Inc.",On-grid,12.64
+62,CASURECO 4,Camarines Sur IV Electric Cooperative,On-grid,12.6
+63,ABRECO,Abra Electric Cooperative Inc.,On-grid,12.58
+64,ZAMECO 2,Zambales II Electric Cooperative Inc.,On-grid,12.56
+65,OMECO,"Occidental Mindoro Electric Cooperative, Inc.",Off-grid,12.52
+66,MOPRECO,Mountain Province Electric Cooperative Inc.,On-grid,12.46
+67,ZAMECO 1,Zambales I Electric Cooperative Inc.,On-grid,12.44
+68,IEC,Ibaan Electric Corporation,On-grid,12.42
+69,CAGELCO 1,"Cagayan 1 Electric Cooperative, Inc.",On-grid,12.39
+70,PRESCO,"Pampanga Rural Electric Service Cooperative, Inc.",On-grid,12.38
+71,ISECO,"Ilocos Sur Electric Cooperative, Inc.",On-grid,12.37
+72,ISELCO 1,"Isabela I Electric Cooperative, Inc.",On-grid,12.37
+73,TARELCO 2,Tarlac II Electric Cooperative Inc.,On-grid,12.34
+74,CENPELCO,"Central Pangasinan Electric Cooperative, Inc.",On-grid,12.33
+75,AEC,Angeles Electric Corporation,On-grid,12.31
+76,TARELCO 1,Tarlac I Electric Cooperative Inc.,On-grid,12.27
+77,CASURECO 1,Camarines Sur I Electric Cooperative,On-grid,12.25
+78,NEECO 1,Nueva Ecija 1 Electric Cooperative Inc.,On-grid,12.25
+79,QUEZELCO 1,Quezon I Electric Cooperative,On-grid,12.24
+80,SAJELCO,San Jose City Electric Cooperative,On-grid,12.22
+81,LUECO,"La Union Electric Company, Inc.",On-grid,12.22
+82,NUVELCO,"Nueva Vizcaya Electric Cooperative, Inc.",On-grid,12.17
+83,CLPC,Cotabato Light and Power Company,On-grid,12.12
+84,LANECO,"Lanao del Norte Electric Cooperative, Inc.",On-grid,12.09
+85,BISELCO,"Busuanga Island Electric Cooperative, Inc.",Off-grid,12.03
+86,TIELCO,"Tablas Island Electric Cooperative, Inc.",Off-grid,11.94
+87,ROMELCO,"Romblon Electric Cooperative, Inc.",Off-grid,11.9
+88,BOHECO 1,Bohol 1 Electric Cooperative,On-grid,11.9
+89,CAGELCO 2,"Cagayan 2 Electric Cooperative, Inc.",On-grid,11.88
+90,SUKELCO,"Sultan Kudarat Electric Cooperative, Inc.",On-grid,11.85
+91,ALECO,"Albay Electric Cooperative, Inc.",On-grid,11.83
+92,BENECO,Benguet Electric Cooperative,On-grid,11.65
+93,PANELCO 1,Pangasinan I Electric Cooperative,On-grid,11.61
+94,PENELCO,"Peninsula Electric Cooperative, Inc.",On-grid,11.61
+95,BATELEC 1,"Batangas I Electric Cooperative, Inc",On-grid,11.55
+96,DECORP,Dagupan Electric Corporation,On-grid,11.35
+97,INEC,"Ilocos Norte Electric Cooperative, Inc.",On-grid,11.2
+98,CASURECO 3,Camarines Sur III Electric Cooperative,On-grid,11.18
+99,CASURECO 2,Camarines Sur II Electric Cooperative,On-grid,11.17
+100,BANELCO,Bantayan Electric Cooperative,Off-grid,11.13
+101,ANECO,"Agusan del Norte Electric Cooperative, Inc.",On-grid,11.11
+102,PELCO 2,Pampanga II Electric Cooperative Inc.,On-grid,11.03
+103,NEECO 2 - A1,"Nueva Ecija 2 Electric Cooperative, Inc. - Area 1",On-grid,10.96
+104,CANORECO,"Camarines Norte Electric Cooperative, Inc.",On-grid,10.91
+105,PELCO 1,Pampanga I Electric Cooperative Inc.,On-grid,10.83
+106,ISELCO 2,"Isabela II Electric Cooperative, Inc.",On-grid,10.73
+107,MASELCO,Masbate Electric Cooperative Inc.,Off-grid,10.62
+108,BATELEC 2,"Batangas II Electric Cooperative, Inc",On-grid,10.53
+109,LEYECO 2,"Leyte II Electric Cooperative, Inc.",On-grid,10.44
+110,IFELCO,"Ifugao Electric Cooperative, Inc.",On-grid,10.19
+111,MARELCO,"Marinduque Electric Cooperative, Inc",Off-grid,9.96
+112,FLECO,"First Laguna Electric Cooperative, Inc.",On-grid,9.68
+113,LASURECO,"Lanao del Sur Electric Cooperative, Inc.",On-grid,5.33
