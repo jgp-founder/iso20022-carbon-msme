@@ -70,6 +70,9 @@ The schema is not included in this repository because it is ISO material; downlo
 
 The simulation uses pacs.008.001.08 (credit transfer). The data dictionary also maps the direct-debit message pacs.003.001.08 (FIToFICustomerDirectDebitV08, Payments Clearing and Settlement V10 in the ISO 20022 message archive), which has the same purpose, creditor, ultimate creditor and remittance elements plus two direct-debit-only elements (creditor scheme identification and mandate related information). Neither schema file is redistributed here.
 
+## Author
+John Goyena Pardiñas, Independent researcher · ORCID [0009-0004-1092-671X](https://orcid.org/0009-0004-1092-671X)
+
 ## How to cite
 If you use this code, data or outputs, please cite:
 
