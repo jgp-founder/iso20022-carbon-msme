@@ -8,6 +8,14 @@ authors:
     email: "pardinasjohnjohn@gmail.com"
 version: "1.0.0"
 date-released: "2026-11-21"
+doi: "10.5281/zenodo.24411218"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.24411218"
+    description: "Version 1.0.0 (cite this for the working paper)"
+  - type: doi
+    value: "10.5281/zenodo.24411217"
+    description: "All versions (resolves to the latest)"
 license: MIT
 repository-code: "https://github.com/jgp-founder/iso20022-carbon-msme"
 keywords:
