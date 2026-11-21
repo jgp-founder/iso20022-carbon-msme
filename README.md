@@ -1,8 +1,8 @@
-# ISO 20022 metadata and transaction-based carbon estimates — scenario analysis
+# Can ISO 20022 Payment Metadata Improve Borrower-Level Carbon Estimates? — code and data
 
 [![DOI](https://zenodo.org/badge/1465087918.svg)](https://doi.org/10.5281/zenodo.24411217)
 
-Code and synthetic data for the working paper *Can ISO 20022 Payment Metadata Improve Transaction-Based Carbon Estimates? A Field Mapping and Scenario Analysis for Philippine Retail Payment Rails*.
+Code and synthetic data for the working paper *Can ISO 20022 Payment Metadata Improve Borrower-Level Carbon Estimates? A Field Mapping and Scenario Analysis of MSME Payments on Philippine Retail Payment Rails*.
 
 ## Files
 - `params.json` — every input, with its source or marked ASSUMPTION
@@ -15,6 +15,7 @@ Code and synthetic data for the working paper *Can ISO 20022 Payment Metadata Im
 - `output/robustness_runs.csv` — full-coverage results for 30 extra seeds, alternative category mixes, within-utility variation and diesel shares
 - `output/robustness_seed_summary.csv` — mean, min, max and SD across the 30 seeds
 - `output/analytical_vs_simulated.csv` — expected MAPE computed from the assumptions alone (no random draws), compared with the simulation at full coverage, plus the expected MAPE along the coverage grid (MAPE is linear in p)
+- `output/borrower_year.csv` — electricity error per payment and per borrower-year (12 monthly bills), with within-utility variation redrawn monthly or fixed per borrower
 - `output/fig_error_vs_coverage.png` — main figure
 - `business_tariffs/` — Section 4.6 case study: `meralco_bill.py` (bill model from Meralco's October 2026 Summary Schedule of Rates) and `table7.py`, which reproduces Table 7 (ALECO, VECO and Davao Light class rates, and Meralco business classes; VECO and Davao Light values are transcribed in `data/` because their pages could not be archived) into `table7_business_tariffs.csv`. Run it from inside that folder: `cd business_tariffs` then `python table7.py`.
 - `output/sample_pacs008.xml` — five example messages
@@ -36,6 +37,7 @@ Methods compared (estimators see only message fields plus public averages, never
 - **A** spend-only, category-blind: amount × one blended kg CO2/PHP factor
 - **B** purpose code known: amount × category factor (DOE grid factor ÷ unweighted mean of the utility rates, ₱13.28/kWh; fuel CO2 factor ÷ midpoint pump price)
 - **C** purpose code + creditor ID: electricity amount ÷ that utility's published tariff × grid factor
+- **C2** creditor ID only (added in v1.1.0): as C, but applied to every payment whose creditor ID resolves to a utility in the registry, with or without a purpose code
 
 Scenarios: p = share of messages with a purpose code (0–100%); q = share of coded electricity messages whose creditor ID resolves to a known utility (0, 50, 100%).
 

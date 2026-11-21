@@ -146,7 +146,6 @@ def build_world(P, rng):
 def write_pacs008(world, has_purp, has_cdtr_id, codes, path):
     """Write one pacs.008 document holding all transactions.
     Party names are placeholders: no personal data exist in this study."""
-    E = lambda tag, text=None, **att: _el(tag, text, **att)
     doc = etree.Element(f"{{{NS}}}Document", nsmap={None: NS})
     root = etree.SubElement(doc, f"{{{NS}}}FIToFICstmrCdtTrf")
     grp = etree.SubElement(root, f"{{{NS}}}GrpHdr")
@@ -187,13 +186,6 @@ def write_pacs008(world, has_purp, has_cdtr_id, codes, path):
 def _sub(parent, tag, text):
     el = etree.SubElement(parent, f"{{{NS}}}{tag}")
     el.text = text
-    return el
-
-
-def _el(tag, text=None, **att):
-    el = etree.Element(f"{{{NS}}}{tag}", **att)
-    if text is not None:
-        el.text = text
     return el
 
 
@@ -250,6 +242,16 @@ def estimate(msgs, avg, registry, codes, use_creditor):
     return np.asarray(est, dtype=float)
 
 
+def estimate_creditor_only(msgs, avg, registry, codes):
+    """Method C without the purpose-code condition: any payment whose creditor
+    ID resolves to a utility in the registry is converted with that utility's
+    tariff; all other payments are treated as in method B."""
+    est = estimate(msgs, avg, registry, codes, use_creditor=False)
+    tariff = msgs["creditor_id"].map(registry)
+    has_t = tariff.notna().to_numpy()
+    return np.where(has_t, msgs["amount_php"].to_numpy() / tariff.to_numpy() * avg["ef_grid"], est)
+
+
 # --------------------------------------------------------------------------
 # 4. Scenario loop
 # --------------------------------------------------------------------------
@@ -292,11 +294,13 @@ def main():
             est_A = msgs["amount_php"].to_numpy() * avg["k_blind"]
             est_B = estimate(msgs, avg, registry, codes, use_creditor=False)
             est_C = estimate(msgs, avg, registry, codes, use_creditor=True)
+            est_Cr = estimate_creditor_only(msgs, avg, registry, codes)
             for cat in ["all", "electricity", "fuel"]:
                 m = np.ones(n, bool) if cat == "all" else (world["category"] == cat).to_numpy()
                 t = world["true_kgco2"].to_numpy()[m]
                 for name, est in [("A_spend_only", est_A), ("B_purpose_code", est_B),
-                                  ("C_code_plus_creditor", est_C)]:
+                                  ("C_code_plus_creditor", est_C),
+                                  ("C2_creditor_only", est_Cr)]:
                     te, mape = metrics(t, est[m])
                     results.append({"p": p, "q": q, "category": cat, "method": name,
                                     "total_error_pct": round(te, 3),
@@ -326,6 +330,7 @@ def main():
     print_summary(res, avg)
     robustness(P)
     analytical_check(P)
+    borrower_year(P)
 
 
 def plot(res):
@@ -368,9 +373,6 @@ def sensitivity(P):
                 ("kWh sigma 0.8", {"sig": 0.8})]
     for label, v in variants:
         Q = json.loads(json.dumps(P))
-        if "ef" in v:
-            # estimator uses base EF while truth uses alt EF -> factor mismatch test
-            pass
         if "excl" in v:
             Q["electricity"]["exclude_codes"] = v["excl"]
         if "synth" in v:
@@ -551,6 +553,41 @@ def analytical_check(P):
           full.set_index("metric").to_string())
     print("Largest |simulated - analytical| at base seed: "
           f"{full['difference_base_minus_analytical'].abs().max():.2f} percentage points")
+
+
+def borrower_year(P, n_borrowers=5000, months=12):
+    """Electricity error per borrower-year (the unit PCAF attributes), p = q = 100%.
+    Each borrower pays one utility for 12 months. Two cases for the +/-w
+    within-utility variation: redrawn every month (transient, e.g. monthly
+    adjustments) or fixed per borrower (persistent, e.g. customer class)."""
+    e = P["electricity"]
+    rng = np.random.default_rng(P["seed"] + 7)
+    du_ids, du_t = du_table(P)
+    avg = public_averages(P)
+    w = e.get("within_du_tariff_variation", 0.0)
+    u = rng.integers(0, len(du_t), n_borrowers)
+    kwh = rng.lognormal(np.log(e["median_kwh_per_payment"]), e["kwh_lognormal_sigma"],
+                        (n_borrowers, months))
+    dev_transient = rng.uniform(1 - w, 1 + w, (n_borrowers, months))
+    dev_persistent = np.repeat(rng.uniform(1 - w, 1 + w, (n_borrowers, 1)), months, 1)
+    rows = []
+    for label, dev in [("transient (redrawn monthly)", dev_transient),
+                       ("persistent (fixed per borrower)", dev_persistent)]:
+        published = du_t[u][:, None]
+        amt = kwh * published * dev
+        true_m = kwh * avg["ef_grid"]
+        est = {"B_purpose_code": amt * avg["k_elec"],
+               "C_code_plus_creditor": amt / published * avg["ef_grid"]}
+        for m, x in est.items():
+            pay = np.mean(np.abs(x - true_m) / true_m) * 100
+            yr = np.mean(np.abs(x.sum(1) - true_m.sum(1)) / true_m.sum(1)) * 100
+            rows.append({"within_utility_variation": label, "method": m,
+                         "mape_per_payment_pct": round(pay, 2),
+                         "mape_per_borrower_year_pct": round(yr, 2)})
+    df = pd.DataFrame(rows)
+    df.to_csv(os.path.join(OUT, "borrower_year.csv"), index=False)
+    print(f"\nElectricity error per payment vs per borrower-year ({n_borrowers} borrowers x {months} months, p = q = 100%):\n",
+          df.set_index(["within_utility_variation", "method"]).to_string())
 
 
 def print_summary(res, avg):
