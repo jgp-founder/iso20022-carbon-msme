@@ -65,3 +65,13 @@ The schema is not included in this repository because it is ISO material; downlo
 ## Message types
 
 The simulation uses pacs.008.001.08 (credit transfer). The data dictionary also maps the direct-debit message pacs.003.001.08 (FIToFICustomerDirectDebitV08, Payments Clearing and Settlement V10 in the ISO 20022 message archive), which has the same purpose, creditor, ultimate creditor and remittance elements plus two direct-debit-only elements (creditor scheme identification and mandate related information). Neither schema file is redistributed here.
+
+## How to cite
+If you use this code, data or outputs, please cite:
+
+Pardiñas, J. G. (2026). *iso20022-carbon-msme: Code and data for "Can ISO 20022 Payment Metadata Improve Borrower-Level Carbon Estimates? A Field Mapping and Scenario Analysis of MSME Payments on Philippine Retail Payment Rails"* (Version 1.0.0) [Computer software]. https://github.com/jgp-founder/iso20022-carbon-msme
+
+GitHub's "Cite this repository" button gives the same citation in APA and BibTeX (from `CITATION.cff`).
+
+## Licence
+The code and the author's own data and outputs are released under the MIT licence (see `LICENSE`); any copy or substantial portion must keep the copyright notice. Tariff figures in `data/` are transcribed from third-party public sources (ICSC PRESYO-PH, Meralco, VECO, Davao Light, ALECO) and remain subject to their owners' terms; their sources are listed in `params.json`, the `data/*_SOURCE.txt` files and the comments in `business_tariffs/`.
