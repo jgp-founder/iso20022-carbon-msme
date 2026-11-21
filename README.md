@@ -1,5 +1,7 @@
 # ISO 20022 metadata and transaction-based carbon estimates — scenario analysis
 
+[![DOI](https://zenodo.org/badge/1465087918.svg)](https://doi.org/10.5281/zenodo.24411217)
+
 Code and synthetic data for the working paper *Can ISO 20022 Payment Metadata Improve Transaction-Based Carbon Estimates? A Field Mapping and Scenario Analysis for Philippine Retail Payment Rails*.
 
 ## Files
@@ -69,7 +71,9 @@ The simulation uses pacs.008.001.08 (credit transfer). The data dictionary also 
 ## How to cite
 If you use this code, data or outputs, please cite:
 
-Pardiñas, J. G. (2026). *iso20022-carbon-msme: Code and data for "Can ISO 20022 Payment Metadata Improve Borrower-Level Carbon Estimates? A Field Mapping and Scenario Analysis of MSME Payments on Philippine Retail Payment Rails"* (Version 1.0.0) [Computer software]. https://github.com/jgp-founder/iso20022-carbon-msme
+Pardiñas, J. G. (2026). *iso20022-carbon-msme: Code and data for 'Can ISO 20022 Payment Metadata Improve Borrower-Level Carbon Estimates? A Field Mapping and Scenario Analysis of MSME Payments on Philippine Retail Payment Rails'* (Version 1.0.0) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.24411218
+
+The DOI above is for version 1.0.0, the version used in the working paper. To cite all versions, use https://doi.org/10.5281/zenodo.24411217.
 
 GitHub's "Cite this repository" button gives the same citation in APA and BibTeX (from `CITATION.cff`).
 
