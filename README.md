@@ -73,9 +73,9 @@ The simulation uses pacs.008.001.08 (credit transfer). The data dictionary also 
 ## How to cite
 If you use this code, data or outputs, please cite:
 
-Pardiñas, J. G. (2026). *iso20022-carbon-msme: Code and data for 'Can ISO 20022 Payment Metadata Improve Borrower-Level Carbon Estimates? A Field Mapping and Scenario Analysis of MSME Payments on Philippine Retail Payment Rails'* (Version 1.0.0) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.24411218
+Pardiñas, J. G. (2026). *iso20022-carbon-msme: Code and data for 'Can ISO 20022 Payment Metadata Improve Borrower-Level Carbon Estimates? A Field Mapping and Scenario Analysis of MSME Payments on Philippine Retail Payment Rails'* (Version v1.1.0) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.24412491
 
-The DOI above is for version 1.0.0, the version used in the working paper. To cite all versions, use https://doi.org/10.5281/zenodo.24411217.
+The DOI above is for version v1.1.0, the version used in the working paper. Version 1.0.0 is https://doi.org/10.5281/zenodo.24411218. To cite all versions, use https://doi.org/10.5281/zenodo.24411217.
 
 GitHub's "Cite this repository" button gives the same citation in APA and BibTeX (from `CITATION.cff`).
 
