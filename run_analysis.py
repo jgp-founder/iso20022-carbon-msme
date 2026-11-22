@@ -33,6 +33,20 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
+# Figure font: Times New Roman, 10 pt. Liberation Serif (metrically identical)
+# is the fallback on systems without Times New Roman.
+plt.rcParams.update({
+    "font.family": "serif",
+    "font.serif": ["Times New Roman", "Liberation Serif", "DejaVu Serif"],
+    "font.size": 10,
+    "axes.titlesize": 10,
+    "axes.labelsize": 10,
+    "xtick.labelsize": 10,
+    "ytick.labelsize": 10,
+    "legend.fontsize": 10,
+    "figure.titlesize": 10,
+})
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "output")
 NS = "urn:iso:std:iso:20022:tech:xsd:pacs.008.001.08"
@@ -353,9 +367,9 @@ def plot(res):
         ax.set_xticklabels(["0%", "25%", "50%", "75%", "100%"])
         ax.grid(alpha=.3)
     axes[0].set_ylabel("MAPE per payment (%)")
-    axes[0].legend(fontsize=8, frameon=False)
-    axes[1].legend(fontsize=8, frameon=False)
-    fig.suptitle("Estimation error vs metadata coverage (synthetic pacs.008 messages; 101 on-grid utility rates, Oct 2026)", fontsize=11)
+    axes[0].legend(frameon=False)
+    axes[1].legend(frameon=False)
+    fig.suptitle("Estimation error vs metadata coverage (synthetic pacs.008 messages; 101 on-grid utility rates, Oct 2026)")
     fig.tight_layout()
     fig.savefig(os.path.join(OUT, "fig_error_vs_coverage.png"), dpi=200)
     plt.close(fig)
