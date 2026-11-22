@@ -45,6 +45,7 @@ plt.rcParams.update({
     "ytick.labelsize": 10,
     "legend.fontsize": 10,
     "figure.titlesize": 10,
+    "mathtext.fontset": "stix",   # Times-style italics for p and q
 })
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -348,28 +349,30 @@ def main():
 
 
 def plot(res):
+    grey, blue, green = "#808080", "#2e75b6", "#3a9a3a"
     fig, axes = plt.subplots(1, 2, figsize=(11, 4.2), sharey=True)
-    styles = {0.0: ":", 0.5: "--", 1.0: "-"}
     for ax, cat in zip(axes, ["electricity", "fuel"]):
         d = res[(res.category == cat)]
         a = d[(d.method == "A_spend_only") & (d.q == 0.0)]
-        ax.plot(a.p, a.mape_pct, color="#888888", marker="o", label="A: spend-only")
+        ax.plot(a.p, a.mape_pct, color=grey, marker="s", lw=2, ms=7,
+                label="A: spend-only")
         b = d[(d.method == "B_purpose_code") & (d.q == 0.0)]
-        ax.plot(b.p, b.mape_pct, color="#1f77b4", marker="o", label="B: + purpose code")
+        b_label = "B: + purpose code" if cat == "electricity" else "B, C, and C2: + purpose code"
+        ax.plot(b.p, b.mape_pct, color=blue, marker="o", lw=2, ms=7, label=b_label)
         if cat == "electricity":
-            for q in [0.5, 1.0]:
+            for q, ls in [(0.5, "--"), (1.0, "-")]:
                 c = d[(d.method == "C_code_plus_creditor") & (d.q == q)]
-                ax.plot(c.p, c.mape_pct, color="#2ca02c", ls=styles[q], marker="o",
-                        label=f"C: + creditor ID (q={q:.0%})")
+                ax.plot(c.p, c.mape_pct, color=green, ls=ls, marker="o", lw=2, ms=7,
+                        label=f"C: + creditor ID ($q$ = {q:.0%})")
         ax.set_title(cat.capitalize())
-        ax.set_xlabel("Share of messages with a purpose code (p)")
+        ax.set_xlabel("Share of messages with a purpose code ($p$)")
         ax.set_xticks([0, .25, .5, .75, 1])
         ax.set_xticklabels(["0%", "25%", "50%", "75%", "100%"])
-        ax.grid(alpha=.3)
+        ax.grid(color="#cccccc", lw=0.8)
+        ax.set_axisbelow(True)
+        ax.legend(loc="upper right", bbox_to_anchor=(1, 1) if cat == "electricity" else (1, 0.92),
+                  frameon=True, facecolor="white", edgecolor="none", framealpha=1)
     axes[0].set_ylabel("MAPE per payment (%)")
-    axes[0].legend(frameon=False)
-    axes[1].legend(frameon=False)
-    fig.suptitle("Estimation error vs metadata coverage (synthetic pacs.008 messages; 101 on-grid utility rates, Oct 2026)")
     fig.tight_layout()
     fig.savefig(os.path.join(OUT, "fig_error_vs_coverage.png"), dpi=200)
     plt.close(fig)
