@@ -15,6 +15,9 @@ identifiers:
     value: "10.5281/zenodo.24411217"
     description: "All versions (resolves to the latest)"
   - type: doi
+    value: "10.5281/zenodo.24504021"
+    description: "Version 1.2.0 (cite this for the journal manuscript)"
+  - type: doi
     value: "10.5281/zenodo.24412491"
     description: "Version 1.1.0 (cite this for the SSRN working paper)"
   - type: doi
