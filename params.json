@@ -35,11 +35,16 @@
   "fuel": {
     "share_diesel": 0.5,
     "_share_note": "ASSUMPTION.",
-    "diesel_price_min_php_per_l": 88.3,
-    "diesel_price_max_php_per_l": 98.8,
-    "gasoline_price_min_php_per_l": 74.9,
+    "price_source": "doe_list",
+    "price_list_file": "data/doe_fuel_prices_2026-10-20.csv",
+    "exclude_flagged": false,
+    "_exclude_note": "false = use every price as DOE reported it. true = drop the two flagged outliers (robustness check).",
+    "_price_source": "Department of Energy (DOE), Price Monitoring of Liquid Fuels, week of 20-26 October 2026: NCR (Oil Industry Management Bureau); North Luzon (CAR and Regions I-III, Luzon Field Office); South Luzon (Regions IV-A, IV-B and V, Oil Industry Management Bureau); Visayas (Regions VI-VIII and NIR, Visayas Field Office); Mindanao (Regions IX-XIII and BARMM, Mindanao Field Office). One overall range (lowest-highest across brands) per monitored city or municipality; see data/doe_fuel_SOURCE.txt. Regular diesel = DIESEL row; gasoline = all grades (RON 91-100). Each of the five DOE areas is equally likely, then each monitored location within the area (ASSUMPTION: no sales volumes). Each location's range is recomputed from the brand columns (the report's OVERALL RANGE column omits a brand or is shifted by one row in 16 rows; both are kept in the CSV). Two outliers are flagged but kept as reported: diesel P55.80/L (Bangued City, Abra) and RON 97 P158.30/L (Ozamiz City).",
+    "_range_note": "Used only when price_source = 'range' (robustness check): DOE NCR overall ranges for the same week, regular diesel P88.00-98.50/L and gasoline across grades P75.10-101.10/L.",
+    "diesel_price_min_php_per_l": 88.0,
+    "diesel_price_max_php_per_l": 98.5,
+    "gasoline_price_min_php_per_l": 75.1,
     "gasoline_price_max_php_per_l": 101.1,
-    "_price_source": "Projected Metro Manila retail ranges for the week starting 20 Oct 2026 (based on DOE prevailing prices 13-19 Oct plus adjustments): regular diesel P88.30-98.80/L; gasoline across grades P74.90-101.10/L. Daily Tribune, 19 Oct 2026, 'Gasoline prices plunge, diesel costs climb', archived https://web.archive.org/web/20261120062921/https://tribune.net.ph/2026/10/19/gasoline-prices-plunge-diesel-costs-climb",
     "median_litres_per_payment": 20,
     "litres_lognormal_sigma": 0.6,
     "_litre_note": "ASSUMPTION.",
@@ -66,5 +71,10 @@
     "electricity": "ELEC",
     "fuel": "FUEL",
     "_fuel_note": "FUEL (Fuel/Gas) is registered in ExternalPurpose1Code since 2026-08-28 via CR1639 (Federal Reserve Financial Services), per the ISO 20022 External Code Sets file checked on 20 Nov 2026. Adoption by PESONet/InstaPay is not known."
+  },
+  "portfolio": {
+    "_note": "ASSUMPTION. PCAF attribution factors (outstanding loan / total assets) for the simulated MSME borrowers, used only for the portfolio check: lognormal with sigma 1.0, scaled to a mean of 0.3 and capped at 1. Estimate and truth share each factor, so the factors only weight borrower errors.",
+    "attribution_mean": 0.3,
+    "attribution_lognormal_sigma": 1.0
   }
 }

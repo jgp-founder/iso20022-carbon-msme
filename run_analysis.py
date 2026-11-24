@@ -102,6 +102,48 @@ def estimator_tariff(P):
         return float(np.mean(du_table(P)[1]))
     return (e["tariff_min_php_per_kwh"] + e["tariff_max_php_per_kwh"]) / 2
 
+def fuel_table(P, kind):
+    """Retail price ranges for one fuel ('diesel' or 'gasoline').
+    price_source = "doe_list": DOE weekly Price Monitoring of Liquid Fuels,
+      20-26 October 2026, one range per monitored city or municipality
+      (data/doe_fuel_prices_2026-10-20.csv). Regular diesel uses the DIESEL row;
+      gasoline spans all grades (lowest to highest of RON 91-100). Ranges are
+      recomputed from the brand columns. The two flagged outliers are dropped
+      when fuel.exclude_flagged is true. Each DOE monitoring area (NCR, North
+      Luzon, South Luzon, Visayas, Mindanao) is equally likely, and each
+      monitored location within an area is equally likely.
+    price_source = "range": one range (min, max) from params.json.
+    Returns (lo, hi, weight, area) arrays."""
+    f = P["fuel"]
+    if f.get("price_source", "range") == "doe_list":
+        d = pd.read_csv(os.path.join(HERE, f["price_list_file"]))
+        if f.get("exclude_flagged", False):
+            d = d[d["flag"].isna()]
+        d = d.copy()
+        d["loc"] = d["report"] + "#" + d["block"].astype(str)
+        if kind == "diesel":
+            d = d[d["product"] == "DIESEL"]
+        else:
+            d = d[d["product"].str.startswith("RON")]
+        g = d.groupby(["area", "loc"]).agg(lo=("price_min_php_per_l", "min"),
+                                           hi=("price_max_php_per_l", "max")).reset_index()
+        areas = f.get("areas") or sorted(g["area"].unique())
+        g = g[g["area"].isin(areas)]
+        n_loc = g.groupby("area")["loc"].transform("count")
+        w = 1.0 / (g["area"].nunique() * n_loc)
+        return (g["lo"].to_numpy(float), g["hi"].to_numpy(float),
+                (w / w.sum()).to_numpy(float), g["area"].to_numpy())
+    lo, hi = f[f"{kind}_price_min_php_per_l"], f[f"{kind}_price_max_php_per_l"]
+    return np.array([lo]), np.array([hi]), np.array([1.0]), np.array(["range"])
+
+
+def fuel_mid(P, kind):
+    """Public average price used by the estimators: the expected price under
+    the price distribution (the midpoint of the range when there is one range)."""
+    lo, hi, w, _ = fuel_table(P, kind)
+    return float(np.sum(w * (lo + hi) / 2))
+
+
 def build_world(P, rng):
     n = P["n_messages"]
     e = P["electricity"]
@@ -130,11 +172,12 @@ def build_world(P, rng):
     })
 
     is_diesel = rng.random(n_fuel) < f["share_diesel"]
-    price = np.where(
-        is_diesel,
-        rng.uniform(f["diesel_price_min_php_per_l"], f["diesel_price_max_php_per_l"], n_fuel),
-        rng.uniform(f["gasoline_price_min_php_per_l"], f["gasoline_price_max_php_per_l"], n_fuel),
-    )
+    prices = {}
+    for kind in ("diesel", "gasoline"):
+        lo, hi, wt, _ = fuel_table(P, kind)
+        i = rng.choice(len(lo), size=n_fuel, p=wt)
+        prices[kind] = rng.uniform(lo[i], hi[i])
+    price = np.where(is_diesel, prices["diesel"], prices["gasoline"])
     litres = rng.lognormal(np.log(f["median_litres_per_payment"]),
                            f["litres_lognormal_sigma"], n_fuel)
     ef = np.where(is_diesel, f["ef_diesel_kgco2_per_l"], f["ef_gasoline_kgco2_per_l"])
@@ -227,8 +270,8 @@ def public_averages(P):
     e, f = P["electricity"], P["fuel"]
     ef_grid = P["grid_emission_factor_kgco2_per_kwh"]["value"]
     t_mid = estimator_tariff(P)
-    d_mid = (f["diesel_price_min_php_per_l"] + f["diesel_price_max_php_per_l"]) / 2
-    g_mid = (f["gasoline_price_min_php_per_l"] + f["gasoline_price_max_php_per_l"]) / 2
+    d_mid = fuel_mid(P, "diesel")
+    g_mid = fuel_mid(P, "gasoline")
     sd = f["share_diesel"]
     # Category spend factors (kg CO2 per PHP) from public midpoints
     k_elec = ef_grid / t_mid
@@ -317,9 +360,11 @@ def main():
                                   ("C_code_plus_creditor", est_C),
                                   ("C2_creditor_only", est_Cr)]:
                     te, mape = metrics(t, est[m])
+                    mpe = np.mean((est[m] - t) / t) * 100   # mean signed error (bias)
                     results.append({"p": p, "q": q, "category": cat, "method": name,
                                     "total_error_pct": round(te, 3),
                                     "mape_pct": round(mape, 3),
+                                    "mean_signed_error_pct": round(mpe, 3),
                                     "true_tco2": round(t.sum() / 1000, 3),
                                     "est_tco2": round(est[m].sum() / 1000, 3)})
             if p == 0.5 and q == 0.5 and not sample_written:
@@ -346,6 +391,8 @@ def main():
     robustness(P)
     analytical_check(P)
     borrower_year(P)
+    portfolio(P)
+    fuel_by_area(P)
 
 
 def plot(res):
@@ -375,6 +422,9 @@ def plot(res):
     axes[0].set_ylabel("MAPE per payment (%)")
     fig.tight_layout()
     fig.savefig(os.path.join(OUT, "fig_error_vs_coverage.png"), dpi=200)
+    # vector copies for journal submission (no rasterized text)
+    fig.savefig(os.path.join(OUT, "fig_error_vs_coverage.pdf"))
+    fig.savefig(os.path.join(OUT, "fig_error_vs_coverage.eps"))
     plt.close(fig)
 
 
@@ -470,6 +520,13 @@ def robustness(P):
         Q["fuel"]["share_diesel"] = sd
         run(f"diesel share={sd:.0%} (estimator assumes 50%)", Q, P["seed"], base_avg)
 
+    Q = json.loads(json.dumps(P))
+    Q["fuel"]["price_source"] = "range"
+    run("fuel prices: NCR only (DOE overall range)", Q, P["seed"])
+    Q = json.loads(json.dumps(P))
+    Q["fuel"]["exclude_flagged"] = True
+    run("fuel prices: two flagged outliers excluded", Q, P["seed"])
+
     df = pd.DataFrame(rows)
     cols = ["check", "seed"] + [c for c in df.columns if c not in ("check", "seed")]
     df = df[cols]
@@ -499,6 +556,57 @@ def _uniform_grid(lo, hi, n=20001):
     return (edges[:-1] + edges[1:]) / 2
 
 
+def _fuel_grid(P, kind, n=2001):
+    """Price grid and weights approximating the fuel price distribution:
+    a weighted mixture of uniform ranges, one per monitored location."""
+    lo, hi, w, _ = fuel_table(P, kind)
+    grids = [_uniform_grid(a, b, n) for a, b in zip(lo, hi)]
+    prices = np.concatenate(grids)
+    weights = np.concatenate([np.full(len(g), wi / len(g)) for g, wi in zip(grids, w)])
+    return prices, weights
+
+
+def fuel_by_area(P):
+    """Fuel error at full coverage (method B) when the estimator uses one
+    national average price, versus when it knows the station's DOE monitoring
+    area (e.g. from a creditor identifier) and uses that area's average price.
+    Also reports each area's own error. Analytical, no random numbers."""
+    f = P["fuel"]
+    if f.get("price_source", "range") != "doe_list":
+        return
+    sd = f["share_diesel"]
+    efd, efg = f["ef_diesel_kgco2_per_l"], f["ef_gasoline_kgco2_per_l"]
+    k_nat = public_averages(P)["k_fuel"]
+    areas = sorted(set(fuel_table(P, "diesel")[3]))
+    rows, nat, reg = [], 0.0, 0.0
+    for a in areas:
+        Q = json.loads(json.dumps(P))
+        Q["fuel"]["areas"] = [a]
+        Pd, Wd = _fuel_grid(Q, "diesel")
+        Pg, Wg = _fuel_grid(Q, "gasoline")
+        k_area = sd * efd / fuel_mid(Q, "diesel") + (1 - sd) * efg / fuel_mid(Q, "gasoline")
+
+        def err(k):
+            return 100 * (sd * np.sum(Wd * np.abs(k * Pd / efd - 1))
+                          + (1 - sd) * np.sum(Wg * np.abs(k * Pg / efg - 1)))
+        e_nat, e_reg = err(k_nat), err(k_area)
+        nat += e_nat / len(areas)
+        reg += e_reg / len(areas)
+        rows.append({"area": a, "diesel_locations": len(fuel_table(Q, "diesel")[0]),
+                     "gasoline_locations": len(fuel_table(Q, "gasoline")[0]),
+                     "diesel_mean_php_per_l": round(fuel_mid(Q, "diesel"), 2),
+                     "gasoline_mean_php_per_l": round(fuel_mid(Q, "gasoline"), 2),
+                     "fuel_B_mape_national_price": round(e_nat, 2),
+                     "fuel_B_mape_area_price": round(e_reg, 2)})
+    rows.append({"area": "All areas (equal weight)",
+                 "fuel_B_mape_national_price": round(nat, 2),
+                 "fuel_B_mape_area_price": round(reg, 2)})
+    df = pd.DataFrame(rows)
+    df.to_csv(os.path.join(OUT, "fuel_by_area.csv"), index=False)
+    print("\nFuel error by DOE monitoring area (method B, p = 100%), national vs area price:\n",
+          df.set_index("area").to_string())
+
+
 def analytical(P, avg=None):
     """Expected per-payment MAPE (%) at full coverage, computed from the
     assumptions alone. Because estimate / true depends only on prices
@@ -506,7 +614,8 @@ def analytical(P, avg=None):
       electricity, payer tariff T = T_u (1 + e), T_u one of the evenly spread
       utility rates, e ~ U(-w, w):
         A: |k_blind * T / EF_grid - 1|    B: |T / T_mid - 1|    C: |e|  (= w/2)
-      fuel, price P ~ U(lo, hi) for diesel (share s) or gasoline:
+      fuel, price P ~ mixture of U(lo, hi) over DOE monitored locations
+      (equal weight per area, then per location), diesel (share s) or gasoline:
         A: |k_blind * P / EF_type - 1|    B and C: |k_fuel * P / EF_type - 1|
     Expected MAPE at partial coverage is linear in p (and q):
         MAPE(p) = (1 - p) MAPE_A + p MAPE_B (or C)."""
@@ -521,13 +630,13 @@ def analytical(P, avg=None):
             "B": np.mean(np.abs(T / avg["t_mid"] - 1)),
             "C": np.mean(np.abs(eps))}
     sd = f["share_diesel"]
-    Pd = _uniform_grid(f["diesel_price_min_php_per_l"], f["diesel_price_max_php_per_l"])
-    Pg = _uniform_grid(f["gasoline_price_min_php_per_l"], f["gasoline_price_max_php_per_l"])
+    Pd, Wd = _fuel_grid(P, "diesel")
+    Pg, Wg = _fuel_grid(P, "gasoline")
     efd, efg = f["ef_diesel_kgco2_per_l"], f["ef_gasoline_kgco2_per_l"]
 
     def fuel_err(k):
-        return (sd * np.mean(np.abs(k * Pd / efd - 1))
-                + (1 - sd) * np.mean(np.abs(k * Pg / efg - 1)))
+        return (sd * np.sum(Wd * np.abs(k * Pd / efd - 1))
+                + (1 - sd) * np.sum(Wg * np.abs(k * Pg / efg - 1)))
 
     fuel = {"A": fuel_err(avg["k_blind"]), "B": fuel_err(avg["k_fuel"])}
     fuel["C"] = fuel["B"]
@@ -604,6 +713,52 @@ def borrower_year(P, n_borrowers=5000, months=12):
     df = pd.DataFrame(rows)
     df.to_csv(os.path.join(OUT, "borrower_year.csv"), index=False)
     print(f"\nElectricity error per payment vs per borrower-year ({n_borrowers} borrowers x {months} months, p = q = 100%):\n",
+          df.set_index(["within_utility_variation", "method"]).to_string())
+
+
+def portfolio(P, n_borrowers=5000, months=12):
+    """Error in a bank's total attributed (financed) electricity emissions,
+    p = q = 100%. Uses the same borrowers as borrower_year(); each borrower's
+    annual emissions are multiplied by a PCAF attribution factor
+    (outstanding loan / total assets for private companies without equity and
+    debt data). Attribution factors are an ASSUMPTION: lognormal, so that a few
+    large exposures dominate, scaled to a mean of 0.3 and capped at 1.
+    Because estimate and truth are multiplied by the same factor, the
+    portfolio error is the attribution-weighted average of borrower errors."""
+    e = P["electricity"]
+    pf = P.get("portfolio", {})
+    rng = np.random.default_rng(P["seed"] + 7)
+    du_ids, du_t = du_table(P)
+    avg = public_averages(P)
+    w = e.get("within_du_tariff_variation", 0.0)
+    u = rng.integers(0, len(du_t), n_borrowers)
+    kwh = rng.lognormal(np.log(e["median_kwh_per_payment"]), e["kwh_lognormal_sigma"],
+                        (n_borrowers, months))
+    dev_transient = rng.uniform(1 - w, 1 + w, (n_borrowers, months))
+    dev_persistent = np.repeat(rng.uniform(1 - w, 1 + w, (n_borrowers, 1)), months, 1)
+    rng2 = np.random.default_rng(P["seed"] + 11)
+    af = rng2.lognormal(0.0, pf.get("attribution_lognormal_sigma", 1.0), n_borrowers)
+    af = np.minimum(af / af.mean() * pf.get("attribution_mean", 0.3), 1.0)
+    rows = []
+    for label, dev in [("transient (redrawn monthly)", dev_transient),
+                       ("persistent (fixed per borrower)", dev_persistent)]:
+        published = du_t[u][:, None]
+        amt = kwh * published * dev
+        true_y = (kwh * avg["ef_grid"]).sum(1)
+        est = {"A_spend_only": (amt * avg["k_blind"]).sum(1),
+               "B_purpose_code": (amt * avg["k_elec"]).sum(1),
+               "C_code_plus_creditor": (amt / published * avg["ef_grid"]).sum(1)}
+        for m, x in est.items():
+            err = (x - true_y) / true_y
+            rows.append({"within_utility_variation": label, "method": m,
+                         "borrower_year_mape_pct": round(100 * np.mean(np.abs(err)), 2),
+                         "attribution_weighted_borrower_mape_pct":
+                             round(100 * np.sum(af * true_y * np.abs(err)) / np.sum(af * true_y), 2),
+                         "portfolio_attributed_total_error_pct":
+                             round(100 * (np.sum(af * x) / np.sum(af * true_y) - 1), 2)})
+    df = pd.DataFrame(rows)
+    df.to_csv(os.path.join(OUT, "portfolio_attributed.csv"), index=False)
+    print(f"\nFinanced (attributed) electricity emissions, {n_borrowers} borrowers, p = q = 100%:\n",
           df.set_index(["within_utility_variation", "method"]).to_string())
 
 

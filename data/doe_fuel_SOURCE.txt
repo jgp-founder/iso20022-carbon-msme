@@ -1,0 +1,37 @@
+Source of data/doe_fuel_prices_2026-10-20.csv
+
+Department of Energy (Philippines), Price Monitoring of Liquid Fuels, week of 20-26 October 2026.
+Reports obtained from the DOE retail pump price pages (https://doe.gov.ph/retail-pump-prices-metro-manila and the regional pages linked from it):
+
+  NCR_price_monitoring_2026-10-20          NCR_Price_Monitoring_10202026.pdf (Oil Industry Management Bureau)
+  NORTH_LUZON_price_monitoring_2026-10-20  NORTHERN_LUZON_LIQUID_FUEL_PRICE_MONITORING_REPORT_FOR_THE_PERIOD_OF_OCT_20-26_2026.pdf (Luzon Field Office; CAR, Regions I-III)
+  REGION_IV-A_price_monitoring_2026-10-20  Region_IV-A_CALABARZON.pdf (Oil Industry Management Bureau)
+  REGION_IV-B_price_monitoring_2026-10-20  Region_IV-B_MIMAROPA.pdf (Oil Industry Management Bureau)
+  REGION_V_price_monitoring_2026-10-20     Region_V_Bicol.pdf (Oil Industry Management Bureau)
+  VISAYAS_price_monitoring_2026-10-20      NEW_VFO_PRICE_MONITORING_102026 (with LGU and DOE Field).pdf (Visayas Field Office; Regions VI-VIII and NIR)
+  MINDANAO_price_monitoring_2026-10-20     42. LFRO-Price-Monitoring-October-20-26-2026.pdf (Mindanao Field Office; Regions IX-XIII and BARMM)
+
+The PDFs are not redistributed. To rebuild the CSV, convert each PDF with
+`pdftotext -layout` into data/doe_fuel/<name>.txt using the names above, then run
+`python data/extract_doe_fuel.py`.
+
+Each row is one product at one monitored city or municipality. price_min/max are
+recomputed from the brand columns (every price between the product name and the
+OVERALL RANGE column); doe_overall_range_min/max are the report's own OVERALL RANGE.
+They differ in 16 rows (overall_range_differs = True), where the OVERALL RANGE column
+leaves out a brand column or, at Alicia (Isabela, Region II), is shifted up by one
+row; these were checked against the PDF pages. Rows with no prices are omitted.
+
+Two prices are flagged as outliers but kept, because the reports print them in both
+the brand column and the overall range: diesel PHP 55.80/L in Bangued City, Abra
+(CAR), and RON 97 PHP 158.30/L at Petron, Ozamiz City (Region X), which DOE's own
+Mindanao summary page also lists as the top of its RON 97/100 range.
+
+Archived copies (Internet Archive, captured 24 November 2026):
+  NCR          https://web.archive.org/web/20261124063617/https://d24qbtp4vooyzi.cloudfront.net/api/media/file/NCR%20Price%20Monitoring%2010202026.pdf?prefix=dev%2Fmedia
+  North Luzon  https://web.archive.org/web/20261124063734/https://d24qbtp4vooyzi.cloudfront.net/api/media/file/NORTHERN%20LUZON%20LIQUID%20FUEL%20PRICE%20MONITORING%20REPORT%20FOR%20THE%20PERIOD%20OF%20OCT%2020-26%202026.pdf?prefix=dev%2Fmedia
+  Region IV-A  https://web.archive.org/web/20261124063947/https://d24qbtp4vooyzi.cloudfront.net/api/media/file/Region%20IV-A%20CALABARZON-2.pdf?prefix=dev%2Fmedia
+  Region IV-B  https://web.archive.org/web/20261124064058/https://d24qbtp4vooyzi.cloudfront.net/api/media/file/Region%20IV-B%20MIMAROPA-2.pdf?prefix=dev%2Fmedia
+  Region V     https://web.archive.org/web/20261124064323/https://d24qbtp4vooyzi.cloudfront.net/api/media/file/Region%20V%20Bicol-2.pdf?prefix=dev%2Fmedia
+  Visayas      https://web.archive.org/web/20261124064437/https://d24qbtp4vooyzi.cloudfront.net/api/media/file/NEW%20VFO%20PRICE%20MONITORING%20102026_%20with%20LGU%20and%20DOE%20Field.pdf?prefix=dev%2Fmedia
+  Mindanao     https://web.archive.org/web/20261124064646/https://d24qbtp4vooyzi.cloudfront.net/api/media/file/42.-LFRO-Price-Monitoring-October-20-26-2026.pdf?prefix=dev%2Fmedia

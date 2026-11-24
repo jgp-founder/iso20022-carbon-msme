@@ -1,0 +1,7 @@
+within_utility_variation,method,borrower_year_mape_pct,attribution_weighted_borrower_mape_pct,portfolio_attributed_total_error_pct
+transient (redrawn monthly),A_spend_only,17.18,17.3,-15.28
+transient (redrawn monthly),B_purpose_code,12.24,12.26,-0.2
+transient (redrawn monthly),C_code_plus_creditor,0.74,0.75,-0.0
+persistent (fixed per borrower),A_spend_only,17.27,17.38,-15.22
+persistent (fixed per borrower),B_purpose_code,12.4,12.43,-0.13
+persistent (fixed per borrower),C_code_plus_creditor,2.48,2.45,0.07

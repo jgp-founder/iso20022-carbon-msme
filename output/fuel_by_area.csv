@@ -1,0 +1,7 @@
+area,diesel_locations,gasoline_locations,diesel_mean_php_per_l,gasoline_mean_php_per_l,fuel_B_mape_national_price,fuel_B_mape_area_price
+Mindanao,163.0,167.0,94.37,86.3,4.86,4.74
+NCR,12.0,12.0,93.48,88.47,6.42,6.38
+North Luzon,59.0,59.0,92.4,86.94,5.82,5.63
+South Luzon,39.0,38.0,95.85,90.45,7.26,7.19
+Visayas,64.0,64.0,95.5,88.28,4.68,4.66
+All areas (equal weight),,,,,5.81,5.72

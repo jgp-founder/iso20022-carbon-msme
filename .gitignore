@@ -4,3 +4,5 @@ __pycache__/
 
 # ISO 20022 schema: obtain from the ISO 20022 message archive; not redistributed
 *.xsd
+data/doe_fuel/
+data/icsc_rates/

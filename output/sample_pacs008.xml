@@ -13,7 +13,7 @@
       <PmtId>
         <EndToEndId>SYN-000000</EndToEndId>
       </PmtId>
-      <IntrBkSttlmAmt Ccy="PHP">2457.91</IntrBkSttlmAmt>
+      <IntrBkSttlmAmt Ccy="PHP">1183.20</IntrBkSttlmAmt>
       <ChrgBr>SLEV</ChrgBr>
       <Dbtr>
         <Nm>SYNTHETIC PAYER</Nm>
@@ -32,14 +32,14 @@
         <Nm>SYNTHETIC CREDITOR</Nm>
       </Cdtr>
       <Purp>
-        <Cd>ELEC</Cd>
+        <Cd>FUEL</Cd>
       </Purp>
     </CdtTrfTxInf>
     <CdtTrfTxInf>
       <PmtId>
         <EndToEndId>SYN-000001</EndToEndId>
       </PmtId>
-      <IntrBkSttlmAmt Ccy="PHP">2109.09</IntrBkSttlmAmt>
+      <IntrBkSttlmAmt Ccy="PHP">899.40</IntrBkSttlmAmt>
       <ChrgBr>SLEV</ChrgBr>
       <Dbtr>
         <Nm>SYNTHETIC PAYER</Nm>
@@ -65,7 +65,7 @@
       <PmtId>
         <EndToEndId>SYN-000002</EndToEndId>
       </PmtId>
-      <IntrBkSttlmAmt Ccy="PHP">2620.60</IntrBkSttlmAmt>
+      <IntrBkSttlmAmt Ccy="PHP">6047.78</IntrBkSttlmAmt>
       <ChrgBr>SLEV</ChrgBr>
       <Dbtr>
         <Nm>SYNTHETIC PAYER</Nm>
@@ -88,7 +88,7 @@
       <PmtId>
         <EndToEndId>SYN-000003</EndToEndId>
       </PmtId>
-      <IntrBkSttlmAmt Ccy="PHP">838.50</IntrBkSttlmAmt>
+      <IntrBkSttlmAmt Ccy="PHP">2680.59</IntrBkSttlmAmt>
       <ChrgBr>SLEV</ChrgBr>
       <Dbtr>
         <Nm>SYNTHETIC PAYER</Nm>
@@ -107,14 +107,14 @@
         <Nm>SYNTHETIC CREDITOR</Nm>
       </Cdtr>
       <Purp>
-        <Cd>ELEC</Cd>
+        <Cd>FUEL</Cd>
       </Purp>
     </CdtTrfTxInf>
     <CdtTrfTxInf>
       <PmtId>
         <EndToEndId>SYN-000004</EndToEndId>
       </PmtId>
-      <IntrBkSttlmAmt Ccy="PHP">1556.31</IntrBkSttlmAmt>
+      <IntrBkSttlmAmt Ccy="PHP">2808.69</IntrBkSttlmAmt>
       <ChrgBr>SLEV</ChrgBr>
       <Dbtr>
         <Nm>SYNTHETIC PAYER</Nm>
@@ -131,17 +131,7 @@
       </CdtrAgt>
       <Cdtr>
         <Nm>SYNTHETIC CREDITOR</Nm>
-        <Id>
-          <OrgId>
-            <Othr>
-              <Id>PANELCO 1</Id>
-            </Othr>
-          </OrgId>
-        </Id>
       </Cdtr>
-      <Purp>
-        <Cd>ELEC</Cd>
-      </Purp>
     </CdtTrfTxInf>
   </FIToFICstmrCdtTrf>
 </Document>
