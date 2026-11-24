@@ -392,6 +392,7 @@ def main():
     analytical_check(P)
     borrower_year(P)
     portfolio(P)
+    miscoding(P)
     fuel_by_area(P)
 
 
@@ -542,6 +543,51 @@ def robustness(P):
     print("\nOther robustness checks (p = q = 100%):\n",
           df[df.check != "seed"].set_index("check")[key].round(1).to_string())
 
+
+
+def miscoding(P, shares=(0.0, 0.05, 0.10, 0.20)):
+    """Full coverage (p = q = 100%) but a share m of electricity and fuel payments
+    carries a wrong purpose code. Two cases:
+      swap    - electricity coded FUEL and fuel coded ELEC (worst case between the two)
+      generic - a non-energy code (e.g. OTHR), so the payment falls back to method A
+    Method C converts with the creditor's tariff only when the code is ELEC;
+    method C2 uses the creditor ID whatever the code says.
+    Writes output/miscoding.csv."""
+    rng = np.random.default_rng(P["seed"])
+    world, registry = build_world(P, rng)
+    avg = public_averages(P)
+    amt = world["amount_php"].to_numpy()
+    true = world["true_kgco2"].to_numpy()
+    is_elec = (world["category"] == "electricity").to_numpy()
+    tariff = world["creditor_id"].map(registry).to_numpy(dtype=float)
+    has_t = ~np.isnan(tariff)
+    u = np.random.default_rng(P["seed"] + 13).random(len(world))
+    rows = []
+    for kind in ("swap", "generic"):
+        for m in shares:
+            wrong = u < m
+            if kind == "swap":
+                code_elec = is_elec ^ wrong            # payment carries ELEC
+                code_fuel = (~is_elec) ^ wrong         # payment carries FUEL
+            else:
+                code_elec = is_elec & ~wrong
+                code_fuel = ~is_elec & ~wrong
+            est_B = amt * avg["k_blind"]
+            est_B = np.where(code_elec, amt * avg["k_elec"], est_B)
+            est_B = np.where(code_fuel, amt * avg["k_fuel"], est_B)
+            conv = amt / np.where(has_t, tariff, 1.0) * avg["ef_grid"]
+            est_C = np.where(code_elec & has_t, conv, est_B)
+            est_C2 = np.where(has_t, conv, est_B)
+            for cat, sel in (("all", np.ones(len(world), bool)), ("electricity", is_elec), ("fuel", ~is_elec)):
+                for name, est in (("B", est_B), ("C", est_C), ("C2", est_C2)):
+                    te, mape = metrics(true[sel], est[sel])
+                    rows.append({"case": kind, "miscoded_share": m, "category": cat, "method": name,
+                                 "mape_pct": round(mape, 2), "total_error_pct": round(te, 2)})
+    df = pd.DataFrame(rows)
+    df.to_csv(os.path.join(OUT, "miscoding.csv"), index=False)
+    print("\nMis-coded purpose codes (p = q = 100%), MAPE %:\n",
+          df.pivot_table(index=["case", "miscoded_share"], columns=["category", "method"],
+                         values="mape_pct").round(1).to_string())
 
 
 # --------------------------------------------------------------------------

@@ -2,7 +2,7 @@
 
 [![DOI](https://zenodo.org/badge/1465087918.svg)](https://doi.org/10.5281/zenodo.24411217)
 
-Code and data for the journal manuscript *Payment Rails as Climate Data Infrastructure: Can ISO 20022 Metadata Improve Borrower-Level Financed-Emissions Estimates? A Field Mapping and Scenario Analysis of Micro, Small, and Medium Enterprise Payments on Philippine Retail Payment Rails* (version v1.2.0). Versions v1.0.0 and v1.1.0 accompany the earlier working paper *Can ISO 20022 Payment Metadata Improve Borrower-Level Carbon Estimates? A Field Mapping and Scenario Analysis of MSME Payments on Philippine Retail Payment Rails* (SSRN Abstract ID 7745578).
+Code and data for the journal manuscript *Payment Rails as Climate Data Infrastructure: Can ISO 20022 Metadata Improve Borrower-Level Financed-Emissions Estimates? A Field Mapping and Scenario Analysis of Micro, Small, and Medium Enterprise Payments on Philippine Retail Payment Rails* (version v1.3.0). Versions v1.0.0 and v1.1.0 accompany the earlier working paper *Can ISO 20022 Payment Metadata Improve Borrower-Level Carbon Estimates? A Field Mapping and Scenario Analysis of MSME Payments on Philippine Retail Payment Rails* (SSRN Abstract ID 7745578).
 
 ## Files
 - `params.json` — every input, with its source or marked ASSUMPTION
@@ -18,10 +18,12 @@ Code and data for the journal manuscript *Payment Rails as Climate Data Infrastr
 - `output/analytical_vs_simulated.csv` — expected MAPE computed from the assumptions alone (no random draws), compared with the simulation at full coverage, plus the expected MAPE along the coverage grid (MAPE is linear in p)
 - `output/borrower_year.csv` — electricity error per payment and per borrower-year (12 monthly bills), with within-utility variation redrawn monthly or fixed per borrower
 - `output/portfolio_attributed.csv` — error in the bank's total attributed (financed) electricity emissions, with borrowers weighted by assumed PCAF attribution factors (outstanding loan / total assets; see `portfolio` in `params.json`)
+- `output/miscoding.csv` — full-coverage errors when 5%, 10% or 20% of electricity and fuel payments carry a wrong purpose code (swapped between ELEC and FUEL, or a non-energy code), for methods B, C and C2
 - `output/fuel_by_area.csv` — fuel error (method B) by DOE monitoring area, with the national average price and with each area's own average price
 - `output/fig_error_vs_coverage.png` — main figure (`.pdf` and `.eps` vector copies for journal submission)
 - `business_tariffs/` — Section 4.6 case study: `meralco_bill.py` (bill model from Meralco's October 2026 Summary Schedule of Rates) and `table7.py`, which reproduces Table 7 (ALECO, VECO and Davao Light class rates, and Meralco business classes; VECO and Davao Light values are transcribed in `data/` because their pages could not be archived) into `table7_business_tariffs.csv`. Run it from inside that folder: `cd business_tariffs` then `python table7.py`.
 - `data/icsc_rate_checks.py` — real-rate checks from ICSC's master file of rates per customer class, per distribution utility (2018–2026; downloaded from ICSC PRESYO-PH and kept locally in `data/icsc_rates/`, not redistributed). Writes `output/icsc_methodB_by_month_2026.csv` (Method B's expected electricity error for each month, January–October 2026, using the same analytical formula) and `output/icsc_commercial_vs_residential_oct2026.csv` (commercial-to-residential rate ratio for each on-grid utility, October 2026). The file's October 2026 on-grid residential rates are identical to `data/presyo_oct2026_residential.csv`.
+- `data/ddp_customers_2022.csv` — 2022 captive customers (total, residential, commercial) for each of the 101 on-grid utilities, from the DOE 2023–2032 Distribution Development Plan; matching notes and source in `data/ddp_customers_SOURCE.txt`. `data/ddp_weighting.py` uses them to compute Method B's expected electricity error with utilities weighted by customers, written to `output/weighted_methodB.csv`.
 - `output/sample_pacs008.xml` — five example messages
 - `output/synthetic_world.csv` — the 10,000 synthetic payments with true quantities and emissions
 
@@ -57,7 +59,7 @@ All prices are for October 2026: residential rates of the 101 on-grid distributi
 Method A misstates category totals (electricity −15.1%, fuel +63.4% at p = 100%); these errors offset in the combined portfolio (+0.8%) under the assumed mix. Methods B and C are within 0.2% of each category's true total at full coverage. Knowing a fuel station's DOE area barely helps (fuel error 5.8% → 5.7%). Excluding the two flagged outlier prices (`fuel.exclude_flagged`) gives 5.7%, because prices vary more within areas than between them.
 
 ## Main caveats
-- Synthetic payments. Utility rates are real but unweighted (no customer counts) and residential only. Results depend on the assumptions in `params.json`; `output/analytical_vs_simulated.csv` shows which assumption drives each error.
+- Synthetic payments. Utility rates are real and residential only; the base case weights every utility equally, and `output/weighted_methodB.csv` reweights them by 2022 customer counts. Results depend on the assumptions in `params.json`; `output/analytical_vs_simulated.csv` shows which assumption drives each error.
 - Setting `tariff_source` to `synthetic` in `params.json` reproduces the earlier design (20 utilities between ALECO and Meralco).
 - C's remaining 2.5% electricity error comes entirely from the assumed ±5% variation within each utility.
 - `FUEL` (Fuel/Gas) was registered in ExternalPurpose1Code on 28 Aug 2026 (CR1639). Domestic schemes still need to adopt it; until then, fuel payments cannot be tagged and stay at method A's error.
@@ -80,9 +82,9 @@ John Goyena Pardiñas, independent researcher · ORCID [0009-0004-1092-671X](htt
 ## How to cite
 If you use this code, data or outputs, please cite:
 
-Pardiñas, J. G. (2026). *iso20022-carbon-msme: Code and data for 'Payment Rails as Climate Data Infrastructure: Can ISO 20022 Metadata Improve Borrower-Level Financed-Emissions Estimates?'* (Version v1.2.0) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.24411217
+Pardiñas, J. G. (2026). *iso20022-carbon-msme: Code and data for 'Payment Rails as Climate Data Infrastructure: Can ISO 20022 Metadata Improve Borrower-Level Financed-Emissions Estimates?'* (Version v1.3.0) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.24411217
 
-Version v1.2.0, used in the journal manuscript, is https://doi.org/10.5281/zenodo.24504021. Version v1.1.0, used in the SSRN working paper, is https://doi.org/10.5281/zenodo.24412491, and version 1.0.0 is https://doi.org/10.5281/zenodo.24411218. The DOI https://doi.org/10.5281/zenodo.24411217 covers all versions and resolves to the latest.
+Version v1.3.0 is the version used in the journal manuscript; its own DOI is shown on the Zenodo record. Version v1.2.0 is https://doi.org/10.5281/zenodo.24504021. Version v1.1.0, used in the SSRN working paper, is https://doi.org/10.5281/zenodo.24412491, and version 1.0.0 is https://doi.org/10.5281/zenodo.24411218. The DOI https://doi.org/10.5281/zenodo.24411217 covers all versions and resolves to the latest.
 
 GitHub's "Cite this repository" button gives the same citation in APA and BibTeX (from `CITATION.cff`).
 

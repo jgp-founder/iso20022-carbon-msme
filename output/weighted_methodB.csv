@@ -1,0 +1,9 @@
+weighting,reference_rate,reference_rate_php_per_kwh,methodB_mape_pct,methodB_mean_signed_error_pct
+equal,unweighted mean,13.2843,12.31,0.0
+equal,weighted mean,13.2843,12.31,0.0
+total customers,unweighted mean,13.2843,12.38,4.22
+total customers,weighted mean,13.8451,11.12,-0.0
+residential customers,unweighted mean,13.2843,12.46,4.34
+residential customers,weighted mean,13.8612,11.12,-0.0
+commercial customers,unweighted mean,13.2843,11.8,5.7
+commercial customers,weighted mean,14.0408,9.58,-0.0

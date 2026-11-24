@@ -1,0 +1,13 @@
+Source: Department of Energy (DOE), 2023-2032 Distribution Development Plan (published 2024),
+https://prod-cms.doe.gov.ph/documents/d/epimb/2023-2032-distribution-development-plan (accessed 24 November 2026).
+Each distribution utility's one-page profile gives "2022 Actual Number of Captive Customers" by sector
+(Residential, Commercial, Industrial, Others, Total). For utilities with separate grid and off-grid profiles,
+the grid profile is used.
+
+ddp_customers_2022.csv lists the 101 on-grid utilities in the ICSC October 2026 residential rate list
+(data/presyo_oct2026_residential.csv), with the DDP utility name and PDF page number, the total captive
+customers, and the residential and commercial counts. ICSC codes were matched to DDP acronyms; five needed
+an explicit match: CENECO/NEPC -> CENECO, IEEC -> IEC (Ibaan Electric Corporation),
+LEYECO 1/DORELCO -> DORELCO, MORE Power -> MEPC, PPALMA -> COTELCO-PPALMA.
+Counts are 2022 actuals and cover captive customers only (contestable customers excluded).
+The DDP PDF is not redistributed here.
