@@ -1,8 +1,8 @@
-# Can ISO 20022 Payment Metadata Improve Borrower-Level Carbon Estimates? — code and data
+# Payment Rails as Climate Data Infrastructure: Can ISO 20022 Metadata Improve Borrower-Level Financed-Emissions Estimates? — code and data
 
 [![DOI](https://zenodo.org/badge/1465087918.svg)](https://doi.org/10.5281/zenodo.24411217)
 
-Code and synthetic data for the working paper *Can ISO 20022 Payment Metadata Improve Borrower-Level Carbon Estimates? A Field Mapping and Scenario Analysis of MSME Payments on Philippine Retail Payment Rails*.
+Code and data for the journal manuscript *Payment Rails as Climate Data Infrastructure: Can ISO 20022 Metadata Improve Borrower-Level Financed-Emissions Estimates? A Field Mapping and Scenario Analysis of Micro, Small, and Medium Enterprise Payments on Philippine Retail Payment Rails* (version v1.2.0). Versions v1.0.0 and v1.1.0 accompany the earlier working paper *Can ISO 20022 Payment Metadata Improve Borrower-Level Carbon Estimates? A Field Mapping and Scenario Analysis of MSME Payments on Philippine Retail Payment Rails* (SSRN Abstract ID 7745578).
 
 ## Files
 - `params.json` — every input, with its source or marked ASSUMPTION
@@ -80,7 +80,7 @@ John Goyena Pardiñas, independent researcher · ORCID [0009-0004-1092-671X](htt
 ## How to cite
 If you use this code, data or outputs, please cite:
 
-Pardiñas, J. G. (2026). *iso20022-carbon-msme: Code and data for 'Can ISO 20022 Payment Metadata Improve Borrower-Level Carbon Estimates? A Field Mapping and Scenario Analysis of MSME Payments on Philippine Retail Payment Rails'* (Version v1.2.0) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.24411217
+Pardiñas, J. G. (2026). *iso20022-carbon-msme: Code and data for 'Payment Rails as Climate Data Infrastructure: Can ISO 20022 Metadata Improve Borrower-Level Financed-Emissions Estimates?'* (Version v1.2.0) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.24411217
 
 Version v1.2.0, used in the journal manuscript, is https://doi.org/10.5281/zenodo.24504021. Version v1.1.0, used in the SSRN working paper, is https://doi.org/10.5281/zenodo.24412491, and version 1.0.0 is https://doi.org/10.5281/zenodo.24411218. The DOI https://doi.org/10.5281/zenodo.24411217 covers all versions and resolves to the latest.
 

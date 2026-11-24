@@ -1,7 +1,7 @@
 cff-version: 1.2.0
 message: "If you use this code, data or outputs, please cite them as below."
 type: software
-title: "iso20022-carbon-msme: Code and data for 'Can ISO 20022 Payment Metadata Improve Borrower-Level Carbon Estimates? A Field Mapping and Scenario Analysis of MSME Payments on Philippine Retail Payment Rails'"
+title: "iso20022-carbon-msme: Code and data for 'Payment Rails as Climate Data Infrastructure: Can ISO 20022 Metadata Improve Borrower-Level Financed-Emissions Estimates?'"
 authors:
   - family-names: "Pardiñas"
     given-names: "John Goyena"
