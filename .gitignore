@@ -1,8 +1,23 @@
 # Local Python environment (each user creates their own from requirements.txt)
 .venv/
 __pycache__/
+*.pyc
 
-# ISO 20022 schema: obtain from the ISO 20022 message archive; not redistributed
+# ISO 20022 schemas: obtain from the ISO 20022 message archive; not redistributed
 *.xsd
+schemas/
+
+# Raw third-party source files (local only; not redistributed)
 data/doe_fuel/
 data/icsc_rates/
+
+# Manuscript drafts, cover letter, and downloaded reference/guideline PDFs (local only)
+paper/
+references/*
+!references/README.md
+
+# OS and Office temporary files
+*.zip
+.DS_Store
+Thumbs.db
+~$*

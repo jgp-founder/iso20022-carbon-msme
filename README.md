@@ -2,7 +2,7 @@
 
 [![DOI](https://zenodo.org/badge/1465087918.svg)](https://doi.org/10.5281/zenodo.24411217)
 
-Code and data for the journal manuscript *Payment Rails as Climate Data Infrastructure: Can ISO 20022 Metadata Improve Borrower-Level Financed-Emissions Estimates? A Field Mapping and Scenario Analysis of Micro, Small, and Medium Enterprise Payments on Philippine Retail Payment Rails* (version v1.3.0). Versions v1.0.0 and v1.1.0 accompany the earlier working paper *Can ISO 20022 Payment Metadata Improve Borrower-Level Carbon Estimates? A Field Mapping and Scenario Analysis of MSME Payments on Philippine Retail Payment Rails* (SSRN Abstract ID 7745578).
+Code and data for the journal manuscript *Payment Rails as Climate Data Infrastructure: Can ISO 20022 Metadata Improve Borrower-Level Financed-Emissions Estimates?* (version v1.3.0; Zenodo preprint https://doi.org/10.5281/zenodo.24535399). Versions v1.0.0 and v1.1.0 accompany an earlier working-paper draft (*Can ISO 20022 Payment Metadata Improve Borrower-Level Carbon Estimates? A Field Mapping and Scenario Analysis of MSME Payments on Philippine Retail Payment Rails*).
 
 ## Files
 - `params.json` — every input, with its source or marked ASSUMPTION
@@ -84,7 +84,7 @@ If you use this code, data or outputs, please cite:
 
 Pardiñas, J. G. (2026). *iso20022-carbon-msme: Code and data for 'Payment Rails as Climate Data Infrastructure: Can ISO 20022 Metadata Improve Borrower-Level Financed-Emissions Estimates?'* (Version v1.3.0) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.24411217
 
-Version v1.3.0, used in the journal manuscript, is https://doi.org/10.5281/zenodo.24507246. Version v1.2.0 is https://doi.org/10.5281/zenodo.24504021. Version v1.1.0, used in the SSRN working paper, is https://doi.org/10.5281/zenodo.24412491, and version 1.0.0 is https://doi.org/10.5281/zenodo.24411218. The DOI https://doi.org/10.5281/zenodo.24411217 covers all versions and resolves to the latest.
+Version v1.3.0, used in the journal manuscript, is https://doi.org/10.5281/zenodo.24507246. Version v1.2.0 is https://doi.org/10.5281/zenodo.24504021. Version v1.1.0, used in the earlier working-paper draft, is https://doi.org/10.5281/zenodo.24412491, and version 1.0.0 is https://doi.org/10.5281/zenodo.24411218. The DOI https://doi.org/10.5281/zenodo.24411217 covers all versions and resolves to the latest.
 
 GitHub's "Cite this repository" button gives the same citation in APA and BibTeX (from `CITATION.cff`).
 
